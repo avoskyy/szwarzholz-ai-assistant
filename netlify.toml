@@ -1,0 +1,23 @@
+# Schwarzholz Villen (concept demo by Varis Visuals) on Netlify: the page sits at the top of the project,
+# the Virtual Assistant (AI) is the Edge Function in netlify/edge-functions/chat.js
+
+[build]
+  publish = "."
+  edge_functions = "netlify/edge-functions"
+
+# the chat endpoint the page talks to
+[[edge_functions]]
+  path = "/api/chat"
+  function = "chat"
+
+# the function's source is not served as a page
+[[redirects]]
+  from = "/netlify/*"
+  to = "/404.html"
+  status = 404
+  force = true
+
+[[headers]]
+  for = "/media/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
